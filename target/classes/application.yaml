@@ -1,0 +1,40 @@
+server:
+  port: 8704
+  forward-headers-strategy: framework
+  servlet:
+    context_path: /setup/api/v1
+  error:
+    include-message: always
+    include-exception: false
+    include-binding-errors: never
+    include-stacktrace: never
+
+spring:
+  application:
+    name: setup-api-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/setup_db
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+feign:
+  client:
+    theatre:
+      name: THEATRE-API
+      url: http://localhost:8700/theatre/api/v1
+      path:
+    movie:
+      name: MOVIE-API
+      url: http://localhost:8700/movie/api/v1
+      path:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info
